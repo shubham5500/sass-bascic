@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600');
+ 
+$padding-15: 15px;
+$border-r-15: 15px;
+$desktop: 840px;
+
+ $colors: (
+     primary: #005DFF,
+     accent: #faf8e8,
+     primary-light: lighten(#005DFF, 40%),
+     primary-dark: darken(#005DFF, 40%)
+ );
+
+ @function color($color-name){
+    @return map-get($colors, $color-name)
+ };
+
+
+ @mixin desktop {
+    // this is a @mixin funtion used here for the desktop version screen 
+    @media (min-width: #{$desktop}) {
+        @content;
+    }
+ }
+
+ body, html{
+     height: 100%;
+ }
+
+ body{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    .bg{
+        background-color: color(primary);
+        clip-path: polygon(100% 0, 100% 80%, 54% 100%, 0 100%, 0 0);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: -1;
+
+        @include desktop{
+            clip-path: polygon(0 0, 77% 0, 63% 100%, 0% 100%);
+        }
+    }
+
+    header a{
+        color: white;
+        padding: $padding-15;
+        display: block;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+}
+
+ main{
+
+    @include desktop{
+        display: grid;
+        grid-template-columns: 50% auto;
+        grid-template-areas: 
+                "primary card"
+    }
+
+    section#card{
+        background: white;
+        margin: 20px auto;
+        border-radius: $border-r-15;
+        padding: 20px;
+        box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+        width: 80%;
+
+        @include desktop{
+            grid-area: card;
+            height: fit-content;
+            align-self: center;
+            margin: 1em;
+        }
+        
+        ul{
+            list-style-type: none;
+            margin: 0; padding: 0;
+            li{
+                margin-bottom: 10px;
+                span{
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    background-color: color(primary-light);
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+                strong{
+                    display: inline-block;
+                    margin-left: max(40px);
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+
+    section#primary{
+        color: #fff;
+        padding: $padding-15;
+        text-align: center;
+
+        @include desktop{
+            grid-area: primary;
+            text-align: left;
+            margin: 4em 0 0 4em;
+        }
+
+
+        h1{
+            font-size: 3em;
+            margin-top: 20px;
+            text-transform: uppercase;
+
+            @include desktop{
+                width: 30%;
+                font-size: 4em;
+                line-height: 0.9em;
+            }
+        }
+        p{
+            font-size: 1.4em;
+        }
+
+        a{
+            color: color(primary-dark);
+            border-radius: $border-r-15;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: color(accent);
+            display: block;
+            text-align: center;
+            margin: 50px auto 0 auto;
+            padding: $padding-15;
+
+            @include desktop{
+               display: inline-block;
+               padding: $padding-15 $padding-15 * 4;
+            }
+        }
+    }
+ }
